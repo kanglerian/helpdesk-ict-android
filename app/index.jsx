@@ -4,6 +4,7 @@ import { Link } from 'expo-router'
 import * as Device from 'expo-device'
 import * as Notifications from 'expo-notifications'
 import Constants from 'expo-constants'
+import { io } from 'socket.io-client'
 
 Notifications.setNotificationHandler({
   handleNotification: async() => ({
@@ -15,11 +16,27 @@ Notifications.setNotificationHandler({
 
 const HomeScreen = () => {
   const [expoPushToken, setExpoPushToken] = useState();
+  const [status, setStatus] = useState('Loading...');
   const [channels, setChannels] = useState([]);
   const [notification, setNotification] = useState(undefined);
 
   const notificationListener = useRef();
   const responseListener = useRef();
+
+  const socket = io("https://api.politekniklp3i-tasikmalaya.ac.id");
+
+  socket.on("connect", () => {
+    setStatus('Berhasil terhubung ke server Socket.IO');
+  });
+
+  socket.on("connect_error", () => {
+    setStatus('Koneksi ke server Socket.IO terputus. Pesan tidak terkirim. Coba lagi nanti.');
+  });
+
+  socket.on('help', async (help) => {
+    await schedulePushNotification(help);
+    console.log(help);
+  });
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => token && setExpoPushToken(token));
@@ -42,12 +59,7 @@ const HomeScreen = () => {
   }, []);
   return (
     <View>
-      <Text>Lerian Febriana: {expoPushToken}</Text>
-      <Text>{`Channels: ${JSON.stringify(
-        channels.map(c => c.id),
-        null,
-        2
-      )}`}</Text>
+      <Text>{status}</Text>
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Text>Title: {notification && notification.request.content.title} </Text>
         <Text>Body: {notification && notification.request.content.body}</Text>
@@ -63,12 +75,12 @@ const HomeScreen = () => {
   )
 }
 
-async function schedulePushNotification() {
+async function schedulePushNotification(help) {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "Helpdesk! 📬",
-      body: 'Here is the notification body',
-      data: { data: 'goes here', test: { test1: 'more data' } },
+      title: `Helpdesk ICT! 📬`,
+      body: `${help.room}: ${help.message}`,
+      data: help,
     },
     trigger: null,
   });

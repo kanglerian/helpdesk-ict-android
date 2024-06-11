@@ -6,14 +6,15 @@ export default function RootLayout() {
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#f4511e',
+          backgroundColor: '#00426D',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
           fontWeight: 'bold',
         },
+        headerTitleAlign: 'center',
       }}>
-      <Stack.Screen name="index"/>
+      <Stack.Screen name="index" options={{ headerTitle: 'Helpdesk ICT' }}/>
       <Stack.Screen name="details"/>
     </Stack>
   );
