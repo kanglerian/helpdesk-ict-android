@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "736295430696",
+    "project_id": "helpdesk-ict-lp3i",
+    "storage_bucket": "helpdesk-ict-lp3i.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736295430696:android:f2c010404edb5fcd75631d",
+        "android_client_info": {
+          "package_name": "com.kanglerian.helpdeskictandroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs_C7LjywEseaKZyelFP8RvQNAjYgsoRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

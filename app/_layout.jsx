@@ -1,8 +1,10 @@
 import { Stack } from "expo-router";
-import HomeScreen from ".";
+import BackgroundTaskHandler from "./BackgroundTaskHandler";
 
 export default function RootLayout() {
   return (
+    <>
+    <BackgroundTaskHandler/>
     <Stack
       screenOptions={{
         headerStyle: {
@@ -17,5 +19,6 @@ export default function RootLayout() {
       <Stack.Screen name="index" options={{ headerTitle: 'Helpdesk ICT' }}/>
       <Stack.Screen name="details"/>
     </Stack>
+    </>
   );
 }
